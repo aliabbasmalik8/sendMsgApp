@@ -1,0 +1,25 @@
+{
+  "name": "jwt",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "firebase-admin": "^5.11.0",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "hbs": "~4.0.1",
+    "http-errors": "~1.6.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.7",
+    "morgan": "^1.9.0",
+    "path": "^0.12.7",
+    "request": "^2.85.0",
+    "timediff": "^1.1.1"
+  }
+}

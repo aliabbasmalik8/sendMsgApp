@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fcmlearning-p",
+  "private_key_id": "ac14bb8c7c288a5f7eba7b0f36ec842dbf3fb57d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCwzeTbXqMUMb1d\nkHcEiM0/hUxbj5xb8EMOrFuZSkZiRe7u6Eq4HB3sSDOwsIworxj4kuupsUMdoUUw\nUx/Z5oP4UTu+RC+VMniTux4ljDM54+zIwSVwX0xyTZMbRCcIYHfnp0OsqFBWnH6z\nNkjyFGyuh8FF1sUr6h131EGcvm5ggUnsgOBpchx27dkdkRxV+a2udCSj5fRy0qfw\nV2h5OF92SYc4tdvC2pjNoSXmLfiLpqm1lK8yv9cxIYTyuvL10A0kfl1hGs35TzE7\nFOzlsoSTo8E6VeYtW+zPMqdcRhsiuZtAvuaFXcYENmTPKNeD/uVfltKJIoywAE5q\nApsE9EojAgMBAAECggEAAyBxBqwiyC2lAq2WXT8qGhB6bDga9MlH9k94Azr8Carg\n8dqrz5u3r8ELIPnOUL3f/C1k+4hF/pUmixc9PfZEqTSOkOvVx5av6TTq8JENKt3s\nBxTbW6RjzrWuf1HyOsSx+ifMG5aSbSWxW+v+2EEiNufxtBF7RS6LvN3FF0eK3iwD\nnz6rqLLjOy6WlxYsQG8IKPXZ4ZwV7o4bG4uAVJCrZs3z7Zk7ySxJWnW5/9z0sLRE\nzdiIAsNriX7LNMTPCZsDuYbSrkZYY+f691kr+WX908y67TlqhbuHOTUtuYnSzkQc\nPPSpOzWBYSIVTt5Vp9zZzscMz5G6+nQ1qyPe2TsiaQKBgQDi/ziym570lJkS3OaG\n9iEBcl4+xUy2oiRdUdseK+ZEfpH8dzN0GrV/PGnC7pW1TR+0/PxLcysla1Bf1dbp\n1bXm5pvsd+fKzdUFBnitsNKrwbFQrNp11BtSJtAcMQECtmtLa1/9T+XExnndeMf3\nrPjAqkleAGXt0eWObW3MDYDQpQKBgQDHZO8vfU3CfBqDLUf/Cr6y3OI/OWM6I7kw\naVb9M0HEf7Nng6CUoGXsHzl+cmn5/LbGT5pow3YliFbX5sWY06qIMWTvdCCIThLU\nOP9Zzp1P66q2zXYxlfuzA0x4dOw5wZWLdN5RRaazkjs3Y7XMI1YsvfLDsXrl80R4\nH5UIJvGtJwKBgCkqWbDiUfBO5neqQdAl4JRvljHR+/h+7RNTXeZZ1beEMJtVTqp2\nkYWSgieMtu+bHe3nlyVjrGZr0LaghAoB7KwEFDDNCecYbtIre0UcdQga5zoXLsMB\nhTbfvQvvwxwn0stpnI3GqIeH6t/EIJeE8dOWzhlS/yki0HuE0s2XgU3VAoGBAJdH\nEtka3jYh5hOD9U2gn1Igl16UcZ4YoFYEdcUgcFNe94Qfr2NT1kAw6HPw5kqN2zXW\nCzZUpXyQViLzqRLr9EPkBcpOdqgzY8GzhLhkM6IBEMIkW/n+6rnEVO5G9zpSjt0B\nS/KpP3KaDWdWtQUuAiFr85VZP/7adCYXAADxWwadAoGAQPTaswuym/GbLBx0/S29\nqvAMNHiTClf8Xdw9WOGEA6cdrcKGDbki1ZTH8e7KbRPyOSPUWhKKwoLA7ww3m4er\nOhxCMaqvUb9owPV+TGBV8E4Z7ZvKSs9uZPPIvkd9cEMVCkD3hYoWOJA79YuUhecn\nmxXz1saTqMfbk4mz/bMKVUM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "fcm-687@fcmlearning-p.iam.gserviceaccount.com",
+  "client_id": "102014843308374554854",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fcm-687%40fcmlearning-p.iam.gserviceaccount.com"
+}
