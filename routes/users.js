@@ -93,7 +93,7 @@ router.post('/uploadAndSendFileUrl',authenticate,function(req, res){
         userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
             if(err)return res.send(msg);
             else{
-                var fileUrl='http://localhost:3000/users/download/'+file.name;
+                var fileUrl='http://18.219.37.151:3000/users/download/'+file.name;
                 sendFileUrl(recipientRecord.fcmKey,fileUrl,function (msg,sendingRes) {
                     console.log(msg+sendingRes);
                 });
@@ -128,7 +128,7 @@ router.post('/uploadAndSendFileUrlTimely',authenticate,function(req, res){
             if(err)return res.send(msg);
             else{
                 var diff=timediff(req.body.date1,req.body.date2,"s");
-                var fileUrl='http://localhost:3000/users/download/'+file.name;
+                var fileUrl='http://18.219.37.151:3000/users/download/'+file.name;
                 setTimeout(sendFileUrl(recipientRecord.fcmKey,fileUrl,function (msg,sendingRes) {
                     console.log(msg+sendingRes);
                 }),diff);
