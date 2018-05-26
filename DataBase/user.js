@@ -20,7 +20,17 @@ var methods={
                         //newUser.fcmKey=req.body.fcmKey;
                         newUser.save(function (err) {
                             if(err) return callback(err,{message:"error occur while save record"},null)
-                            return callback(null,{message:'user successfully added.'},newUser);
+                            const payload = {
+                                expiresInMinutes:1440,
+                                username: req.body.username
+                            };
+                            var token = jwt.sign(payload,config.secret)
+                            return callback(null,{
+                                success: true,
+                                message: 'Enjoy your token!',
+                                token: token
+                            },newUser);
+                            //return callback(null,{message:'user successfully added.'},newUser);
                         });
                     }
                 });
