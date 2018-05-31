@@ -10,11 +10,11 @@ var config=require('../config');
 var userDB=require('../DataBase/user');
 
 var admin = require("firebase-admin");
-var serviceAccount = require("../fcmLearning.json");
+var serviceAccount = require("../quipu-e8617-firebase-adminsdk-4c05p-a2f302ce7f.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://fcmlearning-p.firebaseio.com"
-});
+    databaseURL: "https://quipu-e8617.firebaseio.com"
+  });
 /* GET users listing. */
 router.post('/signup', function(req, res, next) {
   userDB.data.addUser(req,function (err,msg,newUser) {
