@@ -50,6 +50,12 @@ router.post('/sendMessage',authenticate,function (req,res,next) {
     sendMessage(req,res,next);
 });
 
+// router.post('/getKey',function(req,res,next){
+//     userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
+//         console.log(recipientRecord.fcmKey);
+//     })
+// });
+
 function sendMessage(req,res,next) {
     userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
         if(err)return res.send(msg);
@@ -74,9 +80,10 @@ function sendMessage(req,res,next) {
 };
 
 router.post('/sendMessageWithTime',authenticate,function (req,res,next) {
-    var diff=timediff(req.body.date1,req.body.date2,"s");
+    var diff=timediff(Date.parse(req.body.date1),Date.parse(req.body.date2),"s");
     setTimeout(sendMessage(req,res,next),diff);
 });
+
 
 router.post('/uploadAndSendFileUrl',authenticate,function(req, res){
     // create an incoming form object
@@ -169,8 +176,33 @@ function sendFileUrl(fcmKey,fileUrl,callback) {
 
 router.get('/download/:fileurl',function(req, res){
     var file='upload/'+req.params.fileurl;
-    res.download(file); // Set disposition and send it.
+    res.download(file,function(err){
+        if(err){
+            console.log("Downloading Error")
+        }else{
+            deleteFile(file);
+        }
+    }); // Set disposition and send it.
 });
+
+function deleteFile (file) { 
+    fs.unlink(file, function (err) {
+        if (err) {
+            console.error(err.toString());
+        } else {
+            console.warn(file + ' deleted');
+        }
+    });
+}
+
+// router.get('/download/:fileurl', function (req, res) {
+//     var filename = 'upload/'+req.params.fileurl;
+//     var stream = fs.createReadStream(filename);
+//     stream.pipe(res).once("close", function () {
+//         stream.destroy(); // makesure stream closed, not close if download aborted.
+//         deleteFile(filename);
+//     });
+// });
 
 function authenticate(req,res,next) {
     // check header or url parameters or post parameters for token
