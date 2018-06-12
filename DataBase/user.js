@@ -78,7 +78,7 @@ var methods={
 
     getFcmKey:function (req,callback) {
         User.findOne({email:req.body.recipientEmail},function (err,recipientRecord) {
-           if(err)return callback(err,{message:'error occure while fetching fcmkey'},null)
+           if(err)return callback(err,{message:err},null)
            else if(recipientRecord.fcmKey){
                return callback(null,{message:'fcm key find'},recipientRecord);
            }else{

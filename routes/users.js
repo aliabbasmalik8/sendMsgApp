@@ -50,33 +50,36 @@ router.post('/sendMessage',authenticate,function (req,res,next) {
     sendMessage(req,res,next);
 });
 
-// router.post('/getKey',function(req,res,next){
-//     userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
-//         console.log(recipientRecord.fcmKey);
-//     })
-// });
-
 function sendMessage(req,res,next) {
     userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
         if(err)return res.send(msg);
         else{
-            var payload = {
-                data: req.body.message
-            };
-            var option={
-                priority:"high",
-                timeToLive:60*60*24
-            };
-            admin.messaging().sendToDevice(recipientRecord.fcmKey,payload,option)
-                .then(function (response) {
-                    // Response is a message ID string.
-                    return res.send({message:'Successfully sent message:'}, response);
-                })
-                .catch(function (error) {
-                    return res.send({message:'Error sending message:'}, error);
-                });
+            registrationToken=recipientRecord.fcmKey;
+            var message = {
+                android: {
+                    ttl: 3600 * 1000, // 1 hour in milliseconds
+                    priority: 'high',
+                    notification: {
+                      title: req.body.title,
+                      body: req.body.message,
+                    //   icon: 'stock_ticker_update',
+                    //   color: '#f45342'
+                    }
+                  },
+                token: registrationToken
+              };
+              admin.messaging().send(message)
+              .then((response) => {
+                // Response is a message ID string.
+                console.log('Successfully sent message:', response);
+                res.send('sent message successfully');
+              })
+              .catch((error) => {
+                console.log('Error sending message:', error);
+                res.send('something bad happen while sending message');
+              });
         }
-    });
+    })
 };
 
 router.post('/sendMessageWithTime',authenticate,function (req,res,next) {
@@ -84,8 +87,7 @@ router.post('/sendMessageWithTime',authenticate,function (req,res,next) {
     setTimeout(sendMessage(req,res,next),diff);
 });
 
-
-router.post('/uploadAndSendFileUrl',authenticate,function(req, res){
+router.post('/uploadAndSendFileUrl',function(req, res){
     // create an incoming form object
     var form = new formidable.IncomingForm();
     // specify that we want to allow the user to upload multiple files in a single request
@@ -101,9 +103,26 @@ router.post('/uploadAndSendFileUrl',authenticate,function(req, res){
             if(err)return res.send(msg);
             else{
                 var fileUrl= 'http://' + req.headers.host +'/users/download/'+file.name;
-                sendFileUrl(recipientRecord.fcmKey,fileUrl,function (msg,sendingRes) {
-                    console.log(msg+sendingRes);
-                });
+                var message = {
+                    android: {
+                        ttl: 3600 * 1000, // 1 hour in milliseconds
+                        priority: 'high',
+                        notification: {
+                          title: 'file',
+                          body: fileUrl,
+                        //   icon: 'stock_ticker_update',
+                        //   color: '#f45342'
+                        }
+                      },
+                    token: recipientRecord.fcmKey
+                  };
+                  admin.messaging().send(message)
+                    .then((response) => {
+                        console.log('Successfully sent message:', response);
+                    })
+                    .catch((error) => {
+                        console.log('Error sending message:', error);
+                    });
             }
         });
     });
@@ -134,7 +153,7 @@ router.post('/uploadAndSendFileUrlTimely',authenticate,function(req, res){
         userDB.data.getFcmKey(req,function (err,msg,recipientRecord) {
             if(err)return res.send(msg);
             else{
-                var diff=timediff(req.body.date1,req.body.date2,"s");
+                var diff=timediff(Date.parse(req.body.date1),Date.parse(req.body.date2),"s");
                 var fileUrl= 'http://' + req.headers.host +'/users/download/'+file.name;
                 setTimeout(sendFileUrl(recipientRecord.fcmKey,fileUrl,function (msg,sendingRes) {
                     console.log(msg+sendingRes);
@@ -155,23 +174,29 @@ router.post('/uploadAndSendFileUrlTimely',authenticate,function(req, res){
 });
 
 function sendFileUrl(fcmKey,fileUrl,callback) {
-    var payload = {
-        data: fileUrl
-    };
-    var option={
-        priority:"high",
-        timeToLive:60*60*24
-    };
-    admin.messaging().sendToDevice(fcmKey,payload,option)
-        .then(function (response) {
-            // Response is a message ID string.
-            var msg='Successfully sent message:';
-            callback(msg,response);
-        })
-        .catch(function (error) {
-            var msg='Error sending message:';
-            callback(msg,error);
-        });
+    var message = {
+        android: {
+            ttl: 3600 * 1000, // 1 hour in milliseconds
+            priority: 'high',
+            notification: {
+              title: 'file',
+              body: fileUrl,
+            //   icon: 'stock_ticker_update',
+            //   color: '#f45342'
+            }
+          },
+        token: fcmKey
+      };
+      admin.messaging().send(message)
+      .then((response) => {
+        // Response is a message ID string.
+        console.log('Successfully sent message:', response);
+        callback('sent message successfully',response);
+      })
+      .catch((error) => {
+        console.log('Error sending message:', error);
+        callback('something bad happen while sending message',error);
+      });
 };
 
 router.get('/download/:fileurl',function(req, res){
@@ -194,15 +219,6 @@ function deleteFile (file) {
         }
     });
 }
-
-// router.get('/download/:fileurl', function (req, res) {
-//     var filename = 'upload/'+req.params.fileurl;
-//     var stream = fs.createReadStream(filename);
-//     stream.pipe(res).once("close", function () {
-//         stream.destroy(); // makesure stream closed, not close if download aborted.
-//         deleteFile(filename);
-//     });
-// });
 
 function authenticate(req,res,next) {
     // check header or url parameters or post parameters for token
